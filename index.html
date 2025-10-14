@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumu.Tech - Студия Инновационной Разработки</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        
+    .contact-map {
+    /* Основні стилі для контейнера карти */
+    border-radius: 16px;
+    overflow: hidden;
+    height: 400px; /* Фіксована висота для карти */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Красива тінь */
+    background-color: var(--color-card-background);
+    border: 2px solid var(--color-accent); /* Легка рамка в колір акценту */
+    
+    /* NEW: Створення ілюзії карти, якщо вона не завантажилася, та центрування вмісту */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.contact-map iframe {
+    /* Стилі для самого iFrame, якщо ви його використовуєте */
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* Прибираємо зайвий текст під картою, якщо він там був */
+.contact-map p {
+    display: none;
+}
+    /* ======================================= */
+    /* 1. Секція Тарифів */
+    /* ======================================= */
+
+    #tariffs-section {
+        padding: 100px 5vw;
+    }
+
+    .section-title {
+        font-size: 3em;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+        color: var(--color-text-primary);
+    }
+
+    .section-subtitle {
+        font-size: 1.2em;
+        text-align: center;
+        margin-bottom: 60px;
+        color: var(--color-text-secondary);
+    }
+
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .pricing-card {
+        background-color: var(--color-card-background); /* Фоновий колір картки */
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+        border: 1px solid var(--color-card-border); /* Легка рамка */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .pricing-card.popular {
+        border: 2px solid var(--color-accent); /* Виділення популярної картки */
+        box-shadow: 0 0 40px rgba(41, 216, 180, 0.2);
+    }
+
+    .popular-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: var(--color-accent);
+        color: var(--color-button-text-light);
+        padding: 5px 15px;
+        border-radius: 0 14px 0 14px;
+        font-weight: 700;
+        font-size: 0.8em;
+    }
+
+    .pricing-card .header h3 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+        color: var(--color-text-primary);
+        font-weight: 600;
+    }
+
+    .pricing-card .price {
+        font-size: 3.5em;
+        font-weight: 800;
+        color: var(--color-accent);
+        display: block;
+        margin-bottom: 25px;
+    }
+
+    .pricing-card .price span {
+        font-size: 0.5em;
+        vertical-align: top;
+        font-weight: 600;
+        margin-left: 5px;
+    }
+
+    .features {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+        flex-grow: 1; /* Для однакової висоти карток */
+    }
+
+    .features li {
+        padding: 10px 0;
+        border-bottom: 1px dashed var(--color-divider);
+        color: var(--color-text-secondary);
+        font-size: 1em;
+    }
+
+    .features li:last-child {
+        border-bottom: none;
+    }
+
+    .cta-button {
+        display: block;
+        width: 100%;
+        padding: 15px 25px;
+        text-align: center;
+        border: 2px solid var(--color-button-border);
+        background-color: transparent;
+        color: var(--color-text-primary);
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        margin-top: auto; /* Притискає кнопку до низу */
+    }
+
+    .cta-button.primary {
+        background-color: var(--color-accent);
+        border-color: var(--color-accent);
+        color: var(--color-button-text-light); 
+    }
+
+    .cta-button:hover:not(.primary) {
+        background-color: var(--color-hover-background);
+    }
+
+    .cta-button.primary:hover {
+        filter: brightness(1.1);
+    }
+
+    /* ======================================= */
+    /* 2. Секція Зв'язок */
+    /* ======================================= */
+
+    #contact-section {
+        padding: 80px 5vw;
+    }
+
+    .contact-title {
+        margin-bottom: 40px;
+    }
+
+    /* ======================================= */
+    /* 2. Секція Зв'язок - НОВІ ПРАВИЛА ЦЕНТРУВАННЯ */
+    /* ======================================= */
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        max-width: 1200px;
+        margin: 0 auto;
+        align-items: start;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        
+        /* НОВЕ: Центрування вмісту contact-info всередині його колонки */
+        justify-content: center;
+        align-items: center; /* Центрує вміст по горизонталі */
+        text-align: center; /* Центрує текст всередині P/A тегів */
+    }
+
+    /* Очищення стилів для елементів, які тепер повинні бути відцентровані */
+    .contact-item p {
+        font-size: 1.4em;
+        font-weight: 700;
+        color: var(--color-text-primary);
+        margin: 0;
+        /* Текст уже відцентровано завдяки text-align: center на .contact-info */
+    }
+
+    .contact-item .label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 500;
+        color: var(--color-text-secondary);
+        margin-bottom: 5px;
+        /* Текст уже відцентровано завдяки text-align: center на .contact-info */
+    }
+
+    /* Обгортка кнопки для центрування */
+    .submit-request-wrapper {
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Центрує кнопку по горизонталі */
+        margin-top: 5px; /* Невеликий відступ від останнього пункту */
+    }
+
+    .submit-request {
+        /* Кнопка тепер має обмежену ширину, але розташована по центру */
+        width: 250px; /* Фіксована ширина для гарного вигляду */
+        margin-top: 30px; /* Збільшуємо відступ */
+    }
+
+    /* Адаптивність */
+    @media (max-width: 768px) {
+        /* На мобільних пристроях вміст завжди відцентровано */
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+        .submit-request {
+            width: 100%; /* На мобільних кнопка займає всю ширину */
+        }
+        .contact-info {
+            align-items: center;
+        }
+        .submit-request-wrapper {
+            justify-content: center;
+        }
+    }
+
+
+    /* ======================================= */
+    /* Стилі для Темної Теми (Вже можуть бути у вас) */
+    /* ======================================= */
+    :root {
+        --color-text-primary: #f0f0f0;
+        --color-text-secondary: #a0a0a0;
+        --color-accent: #29D8B4; /* Голубий/Бірюзовий */
+        --color-button-text-light: #1e1e1e;
+        --color-card-background: #1e1e1e;
+        --color-card-border: #333;
+        --color-divider: #333;
+        --color-hover-background: #333;
+    }
+
+    [data-theme="light"] {
+        --color-text-primary: #1e1e1e;
+        --color-text-secondary: #555;
+        --color-accent: #FF8C00; /* Оранжевий */
+        --color-button-text-light: #f0f0f0;
+        --color-card-background: #ffffff;
+        --color-card-border: #eee;
+        --color-divider: #ccc;
+        --color-hover-background: #f4f4f4;
+    }
+        /* Добавьте это в Ваш CSS-файл или внутрь <style> тега */
+    .section-subtitle {
+        text-align: center; /* Центрирует текст */
+        max-width: 700px; /* Ограничивает ширину для лучшей читаемости */
+        margin-left: auto; /* Центрирует сам блок */
+        margin-right: auto; /* Центрирует сам блок */
+    }
+
+    /* Применяем те же стили к подзаголовку в шапке (если он есть) */
+    .hero-subtitle {
+        text-align: center;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+        /* 0. Переменные */
+        :root {
+            --color-bg: #111; /* Темний фон */
+            --color-text-primary: #f0f0f0; /* Світлий текст */
+            /* ... інші змінні ... */
+        }
+
+        /* Світла Тема */
+        [data-theme="light"] {
+            --color-bg: #f0f0f0; /* Світлий фон */
+            --color-text-primary: #111; /* Темний текст */
+            /* ... інші змінні ... */
+        }
+
+        /* Якщо текст не відображається, перевірте стилі для p, h1, h2, h3 */
+        p, h1, h2, h3, .section-subtitle, .section-title {
+            color: var(--color-text-primary); /* Усі заголовки та текст повинні використовувати цю змінну */
+        }
+        :root {
+            /* Dark Theme (по умолчанию) */
+            --color-primary: #8C52FF; /* Фиолетовый акцент */
+            --color-secondary: #29D8B4; /* Бирюзовый (Шарик, элементы) */
+            --color-bg: #050812; 
+            --color-text: #E0E4EC; 
+            --color-text-secondary: #A0A4AE; 
+            --color-card-bg: #111422; 
+            --color-nav-bg: rgba(5, 8, 18, 0.95);
+            --color-border: rgba(140, 82, 255, 0.15); 
+            --shadow-glow: 0 0 20px rgba(140, 82, 255, 0.6);
+            --gradient-text: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        /* Light Theme Переменные */
+        html[data-theme="light"] {
+            --color-primary: #337AFF; /* Голубой акцент */
+            --color-secondary: #FF8C00; /* Оранжевый (Шарик, элементы) */
+            --color-bg: #F8F9FA; 
+            --color-text: #212529; 
+            --color-text-secondary: #6C757D; 
+            --color-card-bg: #FFFFFF; 
+            --color-nav-bg: rgba(248, 249, 250, 0.95);
+            --color-border: rgba(51, 122, 255, 0.2); 
+            --shadow-glow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 1. Общие сбросы и body */
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.5s ease; }
+        body {
+            font-family: 'Montserrat', sans-serif; background-color: var(--color-bg);
+            color: var(--color-text); overflow-x: hidden; min-height: 100vh;
+            opacity: 0; visibility: hidden; scroll-behavior: smooth;
+            position: relative; /* Для фиксации фона */
+        }
+        a { text-decoration: none; color: var(--color-primary); }
+        
+        /* ================================================= */
+        /* Three.js ФОН И СЛОИ КОНТЕНТА                      */
+        /* ================================================= */
+        
+        /* 3D-контейнер (самый нижний слой) */
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10; 
+            pointer-events: none; /* Разрешить клики сквозь канвас */
+        }
+        
+        /* Контейнер траектории SVG (средний слой) */
+        /* Переконайтеся, що цей контейнер має низький Z-index */
+        #path-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Або 0. Це має бути нижче, ніж основний контент */
+            pointer-events: none; /* Важливо, щоб кліки проходили через нього */
+        }
+
+        /* Ваш основний контент повинен бути вище */
+        main {
+            position: relative;
+            z-index: 10; /* Вищий Z-index для всього тексту */
+        }
+
+        /* Кожна секція контенту */
+        .content-section {
+            position: relative;
+            z-index: 10;
+            /* Також перевірте, чи мають секції правильний фон */
+            background-color: var(--color-bg); /* Ваш основний колір фону */
+        }
+        
+        /* Общие стили секций */
+        section { 
+            min-height: 100vh; /* Занимает всю высоту */
+            padding: 100px 6vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background-color: var(--color-bg); 
+        }
+        
+        /* Секция Героя - делаем прозрачной, чтобы 3D-модель была видна полностью */
+        .hero-section {
+            padding-top: 250px;
+            background-color: transparent !important; 
+            justify-content: center;
+        }
+
+        /* 2. СТИЛИ НАВИГАЦИИ */
+        .nav-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px; 
+            z-index: 9999; padding: 0 6vw; 
+            background: var(--color-nav-bg); 
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .logo-text { font-size: 1.5rem; font-weight: 900; color: var(--color-text); letter-spacing: 1px;}
+        .logo-text span { 
+            background: var(--gradient-text); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            text-shadow: 0 0 5px rgba(140, 82, 255, 0.4); 
+            transition: none;
+        }
+        html[data-theme="light"] .logo-text span {
+             text-shadow: none; 
+        }
+        .nav-links a { 
+            color: var(--color-text); opacity: 0.8; margin: 0 15px; font-weight: 600; font-size: 0.95rem;
+            padding: 5px 0; position: relative; transition: color 0.3s, opacity 0.3s;
+            cursor: pointer; /* Для плавного скролла */
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--color-primary); opacity: 1; }
+        .nav-links a.active::after { 
+            content: ''; position: absolute; left: 0; bottom: -5px; width: 100%; height: 2px;
+            background: var(--color-primary); 
+        }
+        .header-controls { display: flex; align-items: center; gap: 20px; }
+        
+        /* Переключатель Языка */
+        .lang-switch button {
+            background: transparent; border: 1px solid var(--color-text-secondary);
+            color: var(--color-text-secondary); padding: 5px 10px; border-radius: 4px;
+            font-size: 0.9rem; cursor: pointer;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .lang-switch button.active {
+            background: var(--color-primary); color: var(--color-bg); border-color: var(--color-primary);
+        }
+
+        /* Переключатель Темы */
+        #theme-switch {
+            width: 45px; height: 25px; background: var(--color-primary); border-radius: 50px;
+            position: relative; cursor: pointer; border: 1px solid var(--color-primary);
+            display: flex; align-items: center; padding: 2px;
+        }
+        #theme-switch::after {
+            content: ''; width: 20px; height: 20px; border-radius: 50%;
+            background: var(--color-bg); position: absolute; top: 2px; left: 2px;
+            transition: left 0.3s, background 0.3s;
+        }
+        html[data-theme="light"] #theme-switch::after {
+            left: 21px; 
+            background: var(--color-bg);
+        }
+        
+        /* 3. Общие стили секций и элементов */
+        .section-title { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; }
+        .section-subtitle { margin-bottom: 60px; color: var(--color-text-secondary); }
+        .cta-button { 
+            padding: 12px 25px; border-radius: 6px; font-weight: 700;
+            background: var(--gradient-text); 
+            color: var(--color-bg); 
+            box-shadow: var(--shadow-glow); 
+        }
+        .card { 
+            padding: 30px; border-radius: 8px;
+            background: var(--color-card-bg); border: 1px solid var(--color-border); 
+            color: var(--color-text);
+        }
+        .card-icon { font-size: 1.8rem; margin-right: 10px; color: var(--color-secondary); text-shadow: 0 0 5px var(--color-secondary); }
+        html[data-theme="light"] .card-icon { text-shadow: none; }
+        .step-number { 
+            font-size: 3rem; font-weight: 900; margin-right: 20px;
+            background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            text-shadow: 0 0 10px rgba(140, 82, 255, 0.6);
+        }
+        html[data-theme="light"] .step-number { text-shadow: none; }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .process-step {
+            display: flex; align-items: center; margin-bottom: 30px;
+            border-left: 3px solid var(--color-border); padding-left: 20px;
+        }
+
+        /* НОВЫЕ СТИЛИ: ЛЕНТА ПОРТФОЛИО */
+        .portfolio-carousel {
+            display: flex;
+            overflow-x: scroll; /* Горизонтальная прокрутка */
+            padding: 20px 0;
+            gap: 30px;
+            width: 100%; /* Занимает всю ширину секции */
+            cursor: grab;
+            scroll-snap-type: x mandatory; /* Привязка к карточкам */
+        }
+        /* Скрытие полосы прокрутки для браузеров на основе WebKit */
+        .portfolio-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .portfolio-carousel {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        .portfolio-card {
+            min-width: 320px; /* Фиксированная ширина карточки */
+            flex-shrink: 0; /* Не сжимать */
+            text-align: left;
+            padding: 0; /* Убираем паддинг с внешнего блока */
+            overflow: hidden;
+            scroll-snap-align: start;
+        }
+        .portfolio-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid var(--color-border);
+            transition: transform 0.3s ease;
+        }
+        .portfolio-card:hover img {
+            transform: scale(1.05);
+        }
+        .portfolio-content {
+            padding: 20px;
+            text-align: left;
+        }
+        .portfolio-link {
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: 700;
+            color: var(--color-secondary);
+        }
+        .portfolio-link i {
+            margin-left: 5px;
+            transition: margin-left 0.3s;
+        }
+        .portfolio-link:hover i {
+            margin-left: 10px;
+        }
+
+        /* 4. Стили для Траектории и Шарика */
+        #svg-path-tracker { z-index: 50; }
+        .svg-line {
+            stroke: var(--color-border); 
+            stroke-width: 2; fill: none;
+        }
+        #path-tracker-ball {
+            width: 20px; height: 20px; border-radius: 50%;
+            background-color: var(--color-secondary); 
+            box-shadow: 0 0 10px var(--color-secondary), 0 0 20px rgba(41, 216, 180, 0.5);
+            z-index: 55;
+            transition: none !important; 
+        }
+        html[data-theme="light"] #path-tracker-ball {
+            box-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
+        }
+
+        /* ВЕРТИКАЛЬНЫЙ ТРЕКЕР СЛЕВА */
+        #vertical-tracker-container {
+            position: fixed;
+            left: 30px; /* Слева */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tracker-line {
+            width: 2px; height: 100%; background: var(--color-border); 
+            position: absolute; top: 0;
+        }
+        
+        .tracker-item {
+            display: flex; flex-direction: column; align-items: center; margin: 20px 0;
+            cursor: pointer; position: relative; z-index: 1001; padding: 10px;
+        }
+
+        .tracker-number {
+            width: 30px; height: 30px; border-radius: 50%;
+            background-color: var(--color-bg);
+            border: 2px solid var(--color-border);
+            color: var(--color-text-secondary);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 0.8rem; font-weight: 700;
+        }
+
+        .tracker-item.active .tracker-number {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            box-shadow: 0 0 8px var(--color-primary);
+            background-color: var(--color-card-bg);
+            transition: 0.3s ease;
+        }
+
+        /* БОКОВАЯ ПАНЕЛЬ СПРАВА */
+        #fixed-side-panel {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999; 
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .side-panel-item {
+            width: 45px;
+            height: 45px;
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .side-panel-item:hover {
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-glow);
+            transform: scale(1.1);
+        }
+
+/* CSS для фиксации трекера скролла */
+.path-container {
+    position: fixed; /* Главное изменение: фиксируем элемент в окне просмотра */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Высота равна высоте окна просмотра */
+    z-index: 100; /* Позиционируем выше, чем 3D-фон, но ниже основного контента */
+    pointer-events: none; /* Позволяет кликам проходить сквозь трекер */
+    overflow: hidden;
+}
+
+#scroll-path {
+    /* Дополнительные стили для пути: */
+    stroke: var(--color-primary);
+    stroke-width: 2px;
+    opacity: 0.3;
+}
+
+.path-tracker-ball {
+    position: absolute;
+    width: 10px; /* Размер шарика */
+    height: 10px;
+    background-color: var(--color-accent, #29D8B4); /* Цвет шарика */
+    border-radius: 50%;
+    filter: drop-shadow(0 0 8px var(--color-accent, #29D8B4));
+    transform: translate(-50%, -50%); /* Центрирование шарика относительно траектории */
+    z-index: 101;
+}
+
+    @media (max-width: 1200px) {
+         #vertical-tracker-container { display: none; }
+    }
+    @media (max-width: 768px) {
+        .grid-container {
+            grid-template-columns: 1fr;
+        }
+        .section-title {
+            font-size: 2.5rem;
+        }
+        .hero-section .section-title {
+            font-size: 3.5rem;
+        }
+        .nav-links {
+            display: none; 
+        }
+    }
+    #section-stack {
+        /* ... інші стилі ... */
+        
+        /* ЗМЕНШУЄМО АБО ВИДАЛЯЄМО НИЖНІЙ ВІДСТУП */
+        padding-bottom: 50px; /* Зменште це значення або встановіть 0, якщо є великий відступ */
+        margin-bottom: 0; /* Переконайтеся, що тут немає великого відступу */
+    }
+
+    /* Якщо простір створює контейнер tech-icons, змініть його */
+    .tech-icons {
+        /* ... інші стилі ... */
+        margin-bottom: 0 !important; /* Примусово видаляємо нижній відступ */
+    }
+    #path-container {
+    /* ... інші стилі ... */
+    height: 100%; /* Довжина шляху, не 100vh! */
+}
+    </style>
+</head>
+<body>
+
+    <header class="nav-bar">
+        <a href="#section-1" class="nav-logo">
+            <span class="logo-text">Lumu<span>.Tech</span></span> 
+        </a>
+        <nav class="nav-links">
+            <a href="#section-2" class="nav-link" data-scroll="section-2" data-target="#section-2" data-trans="services">Услуги</a>
+            <a href="#section-benefits" class="nav-link" data-scroll="section-benefits" data-target="#section-benefits" data-trans="benefits">Подход</a>
+            <a href="#section-3" class="nav-link" data-scroll="section-3" data-target="#section-3" data-trans="portfolio">Портфолио</a>
+            <a href="#section-process" class="nav-link" data-scroll="section-process" data-target="#section-process" data-trans="process">Процесс</a>
+            <a href="#section-stack" class="nav-link" data-scroll="section-stack" data-target="#section-stack" data-trans="tech_stack">Стек</a>
+            <a href="#section-5" class="nav-link" data-scroll="section-5" data-target="#section-5" data-trans="contact">Связь</a> 
+        </nav>
+        <div class="header-controls">
+            <div id="theme-switch" title="Toggle Theme"></div>
+            
+            <div class="lang-switch" id="lang-switch">
+                <button class="lang-btn active" data-lang="ukr">RU</button>
+                <button class="lang-btn" data-lang="eng">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <div id="three-container"></div> 
+
+    <div id="path-container">
+        <svg id="svg-path-tracker" width="100%" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 0; overflow: visible;">
+            <path id="scroll-path" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-dasharray="10 10" opacity="0.15" />
+            <circle id="path-tracker-ball" r="10" fill="var(--color-accent)" style="filter: drop-shadow(0 0 10px var(--color-accent));"/>
+        </svg>
+    </div>
+    
+    <div id="vertical-tracker-container">
+        <div class="tracker-item" data-target="#section-1"><div class="tracker-number">01</div></div>
+        <div class="tracker-item" data-target="#section-2"><div class="tracker-number">02</div></div>
+        <div class="tracker-item" data-target="#section-benefits"><div class="tracker-number">03</div></div>
+        <div class="tracker-item" data-target="#section-3"><div class="tracker-number">04</div></div>
+        <div class="tracker-item" data-target="#section-process"><div class="tracker-number">05</div></div>
+        <div class="tracker-item" data-target="#section-stack"><div class="tracker-number">06</div></div>
+        <div class="tracker-item" data-target="#section-5"><div class="tracker-number">07</div></div>
+    </div>
+    
+    <main id="scroll-content">
+        <section class="hero-section" id="section-1">
+            <div class="content-wrapper" style="max-width: 1000px;">
+                <p class="subtitle" data-trans="hero_tagline" style="color: var(--color-secondary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Искусство Технологической Архитектуры</p>
+                <h1 class="section-title" data-trans="hero_title" style="font-size: 4.5rem; line-height: 1.1;">
+                    СОЗДАВАЙТЕ БУДУЩЕЕ. 
+                    <span style="background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(140, 82, 255, 0.5);">ИНТЕЛЛЕКТУАЛЬНЫЕ</span> 
+                    ПЛАТФОРМЫ.
+                </h1>
+                <p class="section-subtitle" data-trans="hero_subtitle" style="font-size: 1.2rem; max-width: 750px; margin-top: 30px;">
+                    Мы специализируемся на разработке комплексных, масштабируемых систем, используя AI, 3D-визуализацию и чистый Full-Stack код.
+                </p>
+                <a href="#section-5" class="cta-button" data-trans="hero_cta">Начать Обсуждение →</a>
+            </div>
+        </section>
+
+        <section class="services-section" id="section-2">
+            <h2 class="section-title" data-trans="sec_services_title">Комплексная Разработка</h2>
+            <p class="section-subtitle" data-trans="sec_services_subtitle">Наш опыт охватывает полный цикл создания цифрового продукта, от идеи до поддержки.</p>
+            <div class="grid-container service-cards">
+                <div class="card" data-delay="0.0"><h3><span class="card-icon"><i class="fas fa-microchip"></i></span> <span data-trans="service1_title">AI & ML Интеграция</span></h3><p data-trans="service1_desc">Интеллектуальные системы, чат-боты, рекомендательные движки и автоматизация на основе нейросетей.</p></div>
+                <div class="card" data-delay="0.2"><h3><span class="card-icon"><i class="fas fa-layer-group"></i></span> <span data-trans="service2_title">Full-Stack Системы</span></h3><p data-trans="service2_desc">Высоконагруженные веб-приложения на современных фреймворках (React, Node.js, Next.js).</p></div>
+                <div class="card" data-delay="0.4"><h3><span class="card-icon"><i class="fas fa-cube"></i></span> <span data-trans="service3_title">3D и Визуализация</span></h3><p data-trans="service3_desc">Интерактивный 3D-контент, WebGL (Three.js), виртуальные конфигураторы и дашборды.</p></div>
+                <div class="card" data-delay="0.0"><h3><span class="card-icon"><i class="fas fa-microchip"></i></span> <span data-trans="service1_title">AI & ML Интеграция</span></h3><p data-trans="service1_desc">Интеллектуальные системы, чат-боты, рекомендательные движки и автоматизация на основе нейросетей.</p></div>
+                <div class="card" data-delay="0.2"><h3><span class="card-icon"><i class="fas fa-layer-group"></i></span> <span data-trans="service2_title">Full-Stack Системы</span></h3><p data-trans="service2_desc">Высоконагруженные веб-приложения на современных фреймворках (React, Node.js, Next.js).</p></div>
+                <div class="card" data-delay="0.4"><h3><span class="card-icon"><i class="fas fa-cube"></i></span> <span data-trans="service3_title">3D и Визуализация</span></h3><p data-trans="service3_desc">Интерактивный 3D-контент, WebGL (Three.js), виртуальные конфигураторы и дашборды.</p></div>
+            </div>
+        </section>
+        <section id="section-benefits" class="approach-section" style="background-color: var(--color-bg-dark); padding: 80px 5vw; color: var(--color-text);">
+    <h2 class="section-title" data-trans="sec_benefits_title">Наш Подход к Архитектуре</h2>
+    <p class="section-subtitle" data-trans="sec_benefits_subtitle">Мы — стратегические партнеры, ориентированные на долговечность вашего продукта.</p>
+
+    <div class="benefits-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px;">
+        
+        <div class="card benefit-card" data-delay="0.1" style="background: var(--color-card-bg); padding: 30px; border-radius: 8px; border-left: 4px solid var(--color-primary); box-shadow: var(--shadow-small);">
+            <h3 style="color: var(--color-primary); margin-bottom: 10px;">Масштабируемость</h3>
+            <p data-trans="benefit1_desc">Разрабатываем с расчетом на миллионы пользователей и легкую интеграцию новых модулей.</p>
+        </div>
+        
+        <div class="card benefit-card" data-delay="0.2" style="background: var(--color-card-bg); padding: 30px; border-radius: 8px; border-left: 4px solid var(--color-secondary); box-shadow: var(--shadow-small);">
+            <h3 style="color: var(--color-secondary); margin-bottom: 10px;">Безопасность</h3>
+            <p data-trans="benefit2_desc">Внедрение лучших практик и протоколов безопасности на уровне архитектуры.</p>
+        </div>
+        
+        <div class="card benefit-card" data-delay="0.3" style="background: var(--color-card-bg); padding: 30px; border-radius: 8px; border-left: 4px solid var(--color-primary); box-shadow: var(--shadow-small);">
+            <h3 style="color: var(--color-primary); margin-bottom: 10px;">Прозрачность</h3>
+            <p data-trans="benefit3_desc">Полный доступ к коду, таск-трекерам и постоянная коммуникация с командой.</p>
+        </div>
+
+        <div class="card benefit-card" data-delay="0.2" style="background: var(--color-card-bg); padding: 30px; border-radius: 8px; border-left: 4px solid var(--color-secondary); box-shadow: var(--shadow-small);">
+            <h3 style="color: var(--color-secondary); margin-bottom: 10px;">Понимание</h3>
+            <p data-trans="benefit2_desc">Мы учитываем ваши запросы.</p>
+        </div>
+    </div>
+</section>
+        <section class="portfolio-section" id="section-3" style="min-height: 80vh; padding-top: 50px; padding-bottom: 50px;">
+            <h2 class="section-title" data-trans="sec_portfolio_title">Избранные Проекты</h2>
+            <p class="section-subtitle" data-trans="sec_portfolio_subtitle">Сложные задачи, которые мы превратили в успех для наших клиентов.</p>
+            
+            <div class="portfolio-carousel">
+                
+                <div class="card portfolio-card" data-delay="0.0">
+                    <img src="https://via.placeholder.com/320x200/8C52FF/FFFFFF?text=AI+Analyst" alt="AI Analyst">
+                    <div class="portfolio-content">
+                        <h3><span data-trans="proj1_title">Финансовый AI-Аналитик</span></h3>
+                        <p data-trans="proj1_desc">Платформа для прогнозирования рыночных трендов на основе глубокого обучения.</p>
+                        <a href="#link-to-project-1" class="portfolio-link">Смотреть кейс <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="card portfolio-card" data-delay="0.1">
+                    <img src="https://via.placeholder.com/320x200/29D8B4/050812?text=3D+Showroom" alt="3D Showroom">
+                    <div class="portfolio-content">
+                        <h3><span data-trans="proj2_title">Интерактивный 3D-Шоурум</span></h3>
+                        <p data-trans="proj2_desc">Веб-приложение для презентации и настройки промышленных товаров в реальном времени.</p>
+                        <a href="#link-to-project-2" class="portfolio-link">Смотреть кейс <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="card portfolio-card" data-delay="0.2">
+                    <img src="https://via.placeholder.com/320x200/337AFF/F8F9FA?text=IoT+Hub" alt="IoT Hub">
+                    <div class="portfolio-content">
+                        <h3><span data-trans="proj3_title">Медицинский IoT-Хаб</span></h3>
+                        <p data-trans="proj3_desc">Система сбора и обработки данных с медицинских датчиков с облачным хранилищем.</p>
+                        <a href="#link-to-project-3" class="portfolio-link">Смотреть кейс <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                 <div class="card portfolio-card" data-delay="0.3">
+                    <img src="https://via.placeholder.com/320x200/FF8C00/050812?text=SaaS+Platform" alt="SaaS Platform">
+                    <div class="portfolio-content">
+                        <h3><span data-trans="proj_extra1_title">B2B SaaS Платформа</span></h3>
+                        <p data-trans="proj_extra1_desc">Полностью переработанная архитектура и UI/UX для Enterprise SaaS решения.</p>
+                        <a href="#link-to-project-4" class="portfolio-link">Смотреть кейс <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                 <div class="card portfolio-card" data-delay="0.4">
+                    <img src="https://via.placeholder.com/320x200/A0A4AE/050812?text=VR+Experience" alt="VR Experience">
+                    <div class="portfolio-content">
+                        <h3><span data-trans="proj_extra2_title">WebVR Обучение</span></h3>
+                        <p data-trans="proj_extra2_desc">Интерактивный опыт обучения для инженеров с использованием WebXR.</p>
+                        <a href="#link-to-project-5" class="portfolio-link">Смотреть кейс <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </section>
+        
+        <section id="section-process" style="background-color: var(--color-card-bg);">
+            <h2 class="section-title" data-trans="sec_process_title">Этапы Работы</h2>
+            <p class="section-subtitle" data-trans="sec_process_subtitle">Методология Agile, адаптированная для достижения максимальной эффективности и качества.</p>
+            <div style="max-width: 900px; width: 100%; text-align: left;">
+                <div class="process-step" data-delay="0.0">
+                    <p class="step-number">01</p>
+                    <div class="step-content"><h4><span data-trans="proc1_title">Исследование и Концепция</span></h4><p data-trans="proc1_desc">Аудит, формирование ТЗ, разработка дорожной карты и высокоуровневой архитектуры.</p></div>
+                </div>
+                <div class="process-step" data-delay="0.2">
+                    <p class="step-number">02</p>
+                    <div class="step-content"><h4><span data-trans="proc2_title">Прототипирование и Дизайн</span></h4><p data-trans="proc2_desc">Создание UI/UX, детальное проектирование API и микросервисов.</p></div>
+                </div>
+                <div class="process-step" data-delay="0.4">
+                    <p class="step-number">03</p>
+                    <div class="step-content"><h4><span data-trans="proc3_title">Итеративная Разработка</span></h4><p data-trans="proc3_desc">Спринты, разработка функционала, непрерывная интеграция и модульное тестирование.</p></div>
+                </div>
+                <div class="process-step" data-delay="0.6">
+                    <p class="step-number">04</p>
+                    <div class="step-content"><h4><span data-trans="proc4_title">Внедрение и Рост</span></h4><p data-trans="proc4_desc">Финальный QA, запуск, интеграция в бизнес-процессы и пост-релизная поддержка.</p></div>
+                </div>
+            </div>
+        </section>
+
+       <main>
+    <section id="section-stack">
+        <h2 class="section-title" data-trans="sec_stack_title">Технології</h2>
+        <p class="section-subtitle" data-trans="sec_stack_subtitle">Ми працюємо з інструментами, які забезпечують швидкість, надійність і інновації.</p>
+        <div class="tech-icons" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; max-width: 1000px;">
+            <i class="fab fa-react" title="React" data-delay="0.0" style="font-size: 3.5rem; color: #61DAFB; text-shadow: 0 0 10px #61DAFB;"></i>
+            <i class="fab fa-node-js" title="Node.js" data-delay="0.1" style="font-size: 3.5rem; color: #68A063; text-shadow: 0 0 10px #68A063;"></i>
+            <i class="fab fa-python" title="Python / ML" data-delay="0.2" style="font-size: 3.5rem; color: #FFD43B; text-shadow: 0 0 10px #FFD43B;"></i>
+            <i class="fab fa-aws" title="AWS" data-delay="0.3" style="font-size: 3.5rem; color: #FF9900; text-shadow: 0 0 10px #FF9900;"></i>
+            <i class="fas fa-cube" title="Three.js / WebGL" data-delay="0.4" style="font-size: 3.5rem; color: #8C52FF; text-shadow: 0 0 10px #8C52FF;"></i>
+            <i class="fab fa-swift" title="Swift / iOS" data-delay="0.5" style="font-size: 3.5rem; color: #F05138; text-shadow: 0 0 10px #F05138;"></i>
+            <i class="fab fa-docker" title="Docker / Kubernetes" data-delay="0.6" style="font-size: 3.5rem; color: #2496ED; text-shadow: 0 0 10px #2496ED;"></i>
+            <i class="fab fa-react" title="React" data-delay="0.0" style="font-size: 3.5rem; color: #61DAFB; text-shadow: 0 0 10px #61DAFB;"></i>
+            <i class="fab fa-node-js" title="Node.js" data-delay="0.1" style="font-size: 3.5rem; color: #68A063; text-shadow: 0 0 10px #68A063;"></i>
+            <i class="fab fa-python" title="Python / ML" data-delay="0.2" style="font-size: 3.5rem; color: #FFD43B; text-shadow: 0 0 10px #FFD43B;"></i>
+            <i class="fab fa-aws" title="AWS" data-delay="0.3" style="font-size: 3.5rem; color: #FF9900; text-shadow: 0 0 10px #FF9900;"></i>
+            <i class="fas fa-cube" title="Three.js / WebGL" data-delay="0.4" style="font-size: 3.5rem; color: #8C52FF; text-shadow: 0 0 10px #8C52FF;"></i>
+            <i class="fab fa-swift" title="Swift / iOS" data-delay="0.5" style="font-size: 3.5rem; color: #F05138; text-shadow: 0 0 10px #F05138;"></i>
+            <i class="fab fa-docker" title="Docker / Kubernetes" data-delay="0.6" style="font-size: 3.5rem; color: #2496ED; text-shadow: 0 0 10px #2496ED;"></i>
+            <i class="fab fa-react" title="React" data-delay="0.0" style="font-size: 3.5rem; color: #61DAFB; text-shadow: 0 0 10px #61DAFB;"></i>
+            <i class="fab fa-node-js" title="Node.js" data-delay="0.1" style="font-size: 3.5rem; color: #68A063; text-shadow: 0 0 10px #68A063;"></i>
+            <i class="fab fa-python" title="Python / ML" data-delay="0.2" style="font-size: 3.5rem; color: #FFD43B; text-shadow: 0 0 10px #FFD43B;"></i>
+            <i class="fab fa-aws" title="AWS" data-delay="0.3" style="font-size: 3.5rem; color: #FF9900; text-shadow: 0 0 10px #FF9900;"></i>
+            <i class="fas fa-cube" title="Three.js / WebGL" data-delay="0.4" style="font-size: 3.5rem; color: #8C52FF; text-shadow: 0 0 10px #8C52FF;"></i>
+            <i class="fab fa-swift" title="Swift / iOS" data-delay="0.5" style="font-size: 3.5rem; color: #F05138; text-shadow: 0 0 10px #F05138;"></i>
+            <i class="fab fa-docker" title="Docker / Kubernetes" data-delay="0.6" style="font-size: 3.5rem; color: #2496ED; text-shadow: 0 0 10px #2496ED;"></i>
+            <i class="fab fa-react" title="React" data-delay="0.0" style="font-size: 3.5rem; color: #61DAFB; text-shadow: 0 0 10px #61DAFB;"></i>
+            <i class="fab fa-node-js" title="Node.js" data-delay="0.1" style="font-size: 3.5rem; color: #68A063; text-shadow: 0 0 10px #68A063;"></i>
+            <i class="fab fa-python" title="Python / ML" data-delay="0.2" style="font-size: 3.5rem; color: #FFD43B; text-shadow: 0 0 10px #FFD43B;"></i>
+            <i class="fab fa-aws" title="AWS" data-delay="0.3" style="font-size: 3.5rem; color: #FF9900; text-shadow: 0 0 10px #FF9900;"></i>
+            <i class="fas fa-cube" title="Three.js / WebGL" data-delay="0.4" style="font-size: 3.5rem; color: #8C52FF; text-shadow: 0 0 10px #8C52FF;"></i>
+            <i class="fab fa-swift" title="Swift / iOS" data-delay="0.5" style="font-size: 3.5rem; color: #F05138; text-shadow: 0 0 10px #F05138;"></i>
+            <i class="fab fa-docker" title="Docker / Kubernetes" data-delay="0.6" style="font-size: 3.5rem; color: #2496ED; text-shadow: 0 0 10px #2496ED;"></i>
+            <i class="fab fa-react" title="React" data-delay="0.0" style="font-size: 3.5rem; color: #61DAFB; text-shadow: 0 0 10px #61DAFB;"></i>
+            <i class="fab fa-node-js" title="Node.js" data-delay="0.1" style="font-size: 3.5rem; color: #68A063; text-shadow: 0 0 10px #68A063;"></i>
+            <i class="fab fa-python" title="Python / ML" data-delay="0.2" style="font-size: 3.5rem; color: #FFD43B; text-shadow: 0 0 10px #FFD43B;"></i>
+            <i class="fab fa-aws" title="AWS" data-delay="0.3" style="font-size: 3.5rem; color: #FF9900; text-shadow: 0 0 10px #FF9900;"></i>
+            <i class="fas fa-cube" title="Three.js / WebGL" data-delay="0.4" style="font-size: 3.5rem; color: #8C52FF; text-shadow: 0 0 10px #8C52FF;"></i>
+            <i class="fab fa-swift" title="Swift / iOS" data-delay="0.5" style="font-size: 3.5rem; color: #F05138; text-shadow: 0 0 10px #F05138;"></i>
+            <i class="fab fa-docker" title="Docker / Kubernetes" data-delay="0.6" style="font-size: 3.5rem; color: #2496ED; text-shadow: 0 0 10px #2496ED;"></i>
+            <i class="fab fa-react" title="React" data-delay="0.0" style="font-size: 3.5rem; color: #61DAFB; text-shadow: 0 0 10px #61DAFB;"></i>
+            <i class="fab fa-node-js" title="Node.js" data-delay="0.1" style="font-size: 3.5rem; color: #68A063; text-shadow: 0 0 10px #68A063;"></i>
+            <i class="fab fa-python" title="Python / ML" data-delay="0.2" style="font-size: 3.5rem; color: #FFD43B; text-shadow: 0 0 10px #FFD43B;"></i>
+            <i class="fab fa-aws" title="AWS" data-delay="0.3" style="font-size: 3.5rem; color: #FF9900; text-shadow: 0 0 10px #FF9900;"></i>
+            <i class="fas fa-cube" title="Three.js / WebGL" data-delay="0.4" style="font-size: 3.5rem; color: #8C52FF; text-shadow: 0 0 10px #8C52FF;"></i>
+            <i class="fab fa-swift" title="Swift / iOS" data-delay="0.5" style="font-size: 3.5rem; color: #F05138; text-shadow: 0 0 10px #F05138;"></i>
+            <i class="fab fa-docker" title="Docker / Kubernetes" data-delay="0.6" style="font-size: 3.5rem; color: #2496ED; text-shadow: 0 0 10px #2496ED;"></i>
+            <i class="fab fa-react" title="React" data-delay="0.0" style="font-size: 3.5rem; color: #61DAFB; text-shadow: 0 0 10px #61DAFB;"></i>
+            <i class="fab fa-node-js" title="Node.js" data-delay="0.1" style="font-size: 3.5rem; color: #68A063; text-shadow: 0 0 10px #68A063;"></i>
+            <i class="fab fa-python" title="Python / ML" data-delay="0.2" style="font-size: 3.5rem; color: #FFD43B; text-shadow: 0 0 10px #FFD43B;"></i>
+            <i class="fab fa-aws" title="AWS" data-delay="0.3" style="font-size: 3.5rem; color: #FF9900; text-shadow: 0 0 10px #FF9900;"></i>
+            <i class="fas fa-cube" title="Three.js / WebGL" data-delay="0.4" style="font-size: 3.5rem; color: #8C52FF; text-shadow: 0 0 10px #8C52FF;"></i>
+            <i class="fab fa-swift" title="Swift / iOS" data-delay="0.5" style="font-size: 3.5rem; color: #F05138; text-shadow: 0 0 10px #F05138;"></i>
+            <i class="fab fa-docker" title="Docker / Kubernetes" data-delay="0.6" style="font-size: 3.5rem; color: #2496ED; text-shadow: 0 0 10px #2496ED;"></i>
+        </div>
+    </section>
+
+    <section id="tariffs-section" class="content-section" style="padding: 100px 5vw;">
+        <h2 class="section-title">Тарифи</h2>
+        <p class="section-subtitle">Почніть з базового — масштабуйтесь під задачі.</p>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="header">
+                    <h3>Lite 50</h3>
+                    <span class="price">50<span>€</span></span>
+                </div>
+                <ul class="features">
+                    <li>лендінг‑карта • 1 екран • до 2 днів</li>
+                    <li>Шаблон • 1 екран</li>
+                    <li>Контакти/карта</li>
+                    <li>Підключення домену</li>
+                </ul>
+                <button class="cta-button">Замовити 50 €</button>
+            </div>
+
+            <div class="pricing-card popular">
+                <div class="popular-badge">Popular</div>
+                <div class="header">
+                    <h3>Lite 79</h3>
+                    <span class="price">79<span>€</span></span>
+                </div>
+                <ul class="features">
+                    <li>1 сторінка • 3–5 секцій • до 4 днів</li>
+                    <li>Адаптивний дизайн</li>
+                    <li>Швидкий запуск</li>
+                    <li>Базове SEO</li>
+                </ul>
+                <button class="cta-button primary">Замовити 79 €</button>
+            </div>
+
+            <div class="pricing-card">
+                <div class="header">
+                    <h3>Lite 99</h3>
+                    <span class="price">99<span>€</span></span>
+                </div>
+                <ul class="features">
+                    <li>1 сторінка • 6–8 секцій • прості анкори</li>
+                    <li>Google Business</li>
+                    <li>Аналітика</li>
+                    <li>Підтримка запуску</li>
+                </ul>
+                <button class="cta-button">Замовити 99 €</button>
+            </div>
+
+            <div class="pricing-card popular">
+                <div class="popular-badge">Popular</div>
+                <div class="header">
+                    <h3>Міні-сайт</h3>
+                    <span class="price">159<span>€</span></span>
+                </div>
+                <ul class="features">
+                    <li>1 сторінка • 5 блоків • до 7 днів</li>
+                    <li>Адаптивний дизайн</li>
+                    <li>Базове SEO</li>
+                    <li>Підключення домену</li>
+                </ul>
+                <button class="cta-button primary">Замовити міні-сайт</button>
+            </div>
+
+            <div class="pricing-card standard">
+                <div class="header">
+                    <h3>Сайт-візитка</h3>
+                    <span class="price">390<span>€</span></span>
+                </div>
+                <ul class="features">
+                    <li>до 5 сторінок • блог/послуги</li>
+                    <li>CMS або Headless</li>
+                    <li>Google Business</li>
+                    <li>Аналітика</li>
+                </ul>
+                <button class="cta-button secondary">Отримати кошторис</button>
+            </div>
+
+            <div class="pricing-card standard">
+                <div class="header">
+                    <h3>Pro-сайт</h3>
+                    <span class="price">990<span>€</span></span>
+                </div>
+                <ul class="features">
+                    <li>кастомний дизайн • інтеграції</li>
+                    <li>UI-кит</li>
+                    <li>Оплати & API</li>
+                    <li>Техпідтримка 1 міс</li>
+                </ul>
+                <button class="cta-button secondary">Запросити пропозицію</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-5" class="contact-section" style="background-color: var(--color-bg); padding: 80px 5vw;">
+        <h2 class="section-title contact-title" data-trans="sec_contact_title">Начнем Работу?</h2>
+        <p class="section-subtitle" data-trans="sec_contact_subtitle">Заполните форму, и наш главный архитектор свяжется с вами в течение 24 часов.</p>
+        <form class="contact-form" style="display: flex; flex-direction: column; gap: 20px; max-width: 500px; width: 100%; margin: 0 auto 50px auto;">
+            <input type="text" placeholder="Ваше Имя:" required data-trans-placeholder="name_ph" style="background: var(--color-card-bg); border: 1px solid var(--color-border); color: var(--color-text); padding: 12px 15px; border-radius: 4px;">
+            <input type="email" placeholder="Ваш Email: [Required]" required data-trans-placeholder="email_ph" style="background: var(--color-card-bg); border: 1px solid var(--color-border); color: var(--color-text); padding: 12px 15px; border-radius: 4px;">
+            <textarea placeholder="Опишите Ваш Проект (цели, бюджет, сроки):" required data-trans-placeholder="project_ph" rows="4" style="background: var(--color-card-bg); border: 1px solid var(--color-border); color: var(--color-text); padding: 12px 15px; border-radius: 4px;"></textarea>
+            <button type="submit" class="cta-button send-button" data-trans="send_cta" style="margin-top: 20px;">Отправить Запрос</button>
+        </form>
+        
+        <h2 class="section-title contact-title">Звʼязок</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="label">Телефон</span>
+                    <p><a href="tel:+380683642205" class="contact-link">+380 68 364 2205</a></p>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Email</span>
+                    <p><a href="mailto:hello@lumu.digital" class="contact-link">hello@lumu.digital</a></p>
+                </div>
+                <div class="contact-item">
+                    <span class="label">Локація</span>
+                    <p>Ірпінь, вул. Університетська 26</p>
+                </div>
+                <div class="contact-item project-set">
+                    <span class="label">Набір проєктів</span>
+                    <p>жовтень 2025 — 2</p>
+                </div>
+            <div class="submit-request-wrapper">
+                 <button class="cta-button primary submit-request">Надіслати запит</button>
+            </div>
+        </div>
+        
+        <div class="contact-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224.20686552976105!2d30.228030606819164!3d50.52280215588372!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472b317e42642cd5%3A0xd5f901464178030e!2z0LLRg9C70LjRhtGPINCj0L3RltCy0LXRgNGB0LjRgtC10YLRgdGM0LrQsCwgMjYsINCG0YDQv9GW0L3RjCwg0JrQuNGX0LLRgdGM0LrQsCDQvtCx0LvQsNGB0YLRjCwg0KPQutGA0LDRl9C90LAsIDA4MjAw!5e0!3m2!1suk!2sus!4v1760450238015!5m2!1suk!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+    </div>
+</section>
+
+    <footer class="footer" style="display: flex; justify-content: space-between; align-items: center; padding: 30px 5vw; background: var(--color-nav-bg); border-top: 1px solid var(--color-border);">
+        <div class="logo-text" style="color: var(--color-text);">Lumu<span>.Tech</span></div>
+        <div class="footer-links" style="display: flex; gap: 30px; font-size: 0.9rem; color: var(--color-text-secondary);">
+            <span data-trans="footer_copy">© 2025 Lumu.Tech. Все права защищены.</span>
+        </div>
+        <div class="social-icons">
+            <a href="#" target="_blank" style="color: var(--color-text-secondary); margin: 0 10px;"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" target="_blank" style="color: var(--color-text-secondary); margin: 0 10px;"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank" style="color: var(--color-text-secondary); margin: 0 10px;"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <div id="fixed-side-panel">
+        <div class="side-panel-item" title="Задать вопрос" id="question-button">
+            <i class="fas fa-question"></i>
+        </div>
+        <a href="https://t.me/your_telegram_username" target="_blank" class="side-panel-item" title="Написать в Telegram">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <div class="side-panel-item" title="В начало" id="scroll-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
+
+    <script>
+        // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
+        const threeContainer = document.getElementById('three-container');
+        let scene, camera, renderer, grid, particles, model, pulsatingCircles = [];
+        let clock = new THREE.Clock();
+        function initThree() {
+            if (typeof THREE === 'undefined' || !threeContainer) return;
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);        
+            // Начальное позиционирование камеры
+            camera.position.set(0, 0, 50);
+            camera.lookAt(scene.position);
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setClearColor(0x050812, 0);
+            threeContainer.appendChild(renderer.domElement);
+            // АТМОСФЕРНАЯ СЕТКА
+            const gridSize = 1000;
+            const divisions = 80;
+            const gridColor = 0x8C52FF;
+            grid = new THREE.GridHelper(gridSize, divisions, gridColor, gridColor);
+            grid.material.opacity = 0.1;
+            grid.material.transparent = true;
+            grid.material.depthWrite = false;
+            grid.position.y = -50;
+            scene.add(grid);
+            // СИСТЕМА ЧАСТИЦ (упрощено)
+            const particleCount = 500;
+            const particleGeometry = new THREE.BufferGeometry();
+            const positions = [];
+            const particleColor = new THREE.Color(0x29D8B4);
+            for (let i = 0; i < particleCount; i++) {
+                positions.push((Math.random() - 0.5) * gridSize, (Math.random() - 0.5) * gridSize * 0.5, (Math.random() - 0.5) * gridSize);
+            }
+            particleGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+            const particleMaterial = new THREE.PointsMaterial({ size: 0.8, color: particleColor, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+            particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+            // 3D-ОБЪЕКТ (TorusKnotGeometry)
+            const geometry = new THREE.TorusKnotGeometry( 10, 3, 100, 16 );
+            const material = new THREE.MeshPhongMaterial( {
+                color: 0x8C52FF,
+                shininess: 100,
+                specular: 0x999999,
+                transparent: true,
+                opacity: 0.9,
+            } );
+            model = new THREE.Mesh( geometry, material );
+            // ИЗМЕНЕНИЕ: Устанавливаем фигуру подальше (Z: -100) и выше (Y: 50)
+            model.position.set(0, 50, -100); 
+            scene.add( model );
+            // ПУЛЬСИРУЮЩИЕ КРУГИ
+            const circleCount = 5;
+            const circleGeometry = new THREE.RingGeometry(5, 10, 32);
+            for (let i = 0; i < circleCount; i++) {
+                const circleMaterial = new THREE.MeshBasicMaterial({
+                    color: 0x29D8B4,
+                    transparent: true,
+                    opacity: 0.05 + Math.random() * 0.05,
+                    side: THREE.DoubleSide
+                });
+                const circle = new THREE.Mesh(circleGeometry, circleMaterial);
+                circle.position.set(
+                    (Math.random() - 0.5) * 200,
+                    (Math.random() - 0.5) * 200,
+                    (Math.random() - 0.5) * 100 - 150
+                );
+                circle.rotation.x = Math.random() * Math.PI;
+                circle.rotation.y = Math.random() * Math.PI;
+                circle.scale.setScalar(0.5 + Math.random());
+                scene.add(circle);
+                pulsatingCircles.push({
+                    mesh: circle,
+                    initialScale: circle.scale.x,
+                    pulseSpeed: 0.5 + Math.random() * 0.5,
+                    pulseAmplitude: 0.2 + Math.random() * 0.3,
+                    blinkSpeed: 0.8 + Math.random() * 0.8,
+                    initialOpacity: circle.material.opacity
+                });
+            }
+            // Добавление света
+            const ambientLight = new THREE.AmbientLight(0x404040, 5);
+            scene.add(ambientLight);
+            const pointLight1 = new THREE.PointLight(0xFFFFFF, 500, 500);
+            pointLight1.position.set(50, 50, 50);
+            scene.add(pointLight1);
+            const pointLight2 = new THREE.PointLight(0x29D8B4, 500, 500);
+            pointLight2.position.set(-50, -50, -50);
+            scene.add(pointLight2);       
+            // Функция анимации, которая будет вызываться каждый кадр
+            function animate() {
+                requestAnimationFrame(animate);
+                const time = clock.getElapsedTime();             
+                camera.position.x = Math.sin(time * 0.05) * 100;
+                camera.position.z = Math.cos(time * 0.05) * 100;
+                camera.lookAt(scene.position);            
+                // Вращение сетки и частиц
+                if (grid) grid.rotation.y = time * 0.01;
+                if (particles) particles.rotation.y = time * 0.02;            
+                // Анимация пульсирующих кругов
+                pulsatingCircles.forEach(circleData => {
+                    const mesh = circleData.mesh;
+                    mesh.scale.setScalar(circleData.initialScale + Math.sin(time * circleData.pulseSpeed) * circleData.pulseAmplitude);
+                    mesh.material.opacity = circleData.initialOpacity + (Math.sin(time * circleData.blinkSpeed) * 0.05);
+                    if (mesh.material.opacity < 0.01) mesh.material.opacity = 0.01;
+                });
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+        function onWindowResize() {
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+            const svg = document.getElementById('svg-path-tracker');
+            const pathContainer = document.getElementById('path-container');
+
+            if (svg && pathContainer) {
+                const totalHeight = document.documentElement.scrollHeight;
+                // Здесь: viewBox должен быть адаптирован к новому общему размеру
+                svg.setAttribute('viewBox', `0 0 1000 ${totalHeight}`);
+                svg.style.height = `${totalHeight}px`; 
+
+                ScrollTrigger.getAll().forEach(t => t.kill());
+                initAnimations(); // Перезапускает initPathTracker
+            }
+        }
+        // ЛОГИКА: ТРАЕКТОРИЯ GSAP MotionPath
+        function initPathTracker() {
+            if (typeof gsap === 'undefined' || typeof MotionPathPlugin === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+            const ball = document.getElementById("path-tracker-ball");
+            const path = document.getElementById("scroll-path");
+
+            if (!ball || !path) return;
+
+            // 1. Динамическое определение высоты
+            const totalHeight = document.documentElement.scrollHeight;
+            // Конечная точка пути должна быть на уровне нижней части документа.
+            // Ширина SVG (viewBox) = 1000. Координата X должна быть в пределах 1000.
+            // Y должна быть равна totalHeight.
+
+            // 2. Генерация нового пути (M - move to, C - cubic bezier curve)
+            // Предполагаемый путь: S-образная кривая
+            const newPathData = `
+                M 500 0
+                C 500 200, 700 300, 700 500
+                S 300 700, 300 900
+                S 700 ${totalHeight - 200}, 500 ${totalHeight}
+            `;
+                
+            // Устанавливаем новый путь в элемент SVG
+            path.setAttribute('d', newPathData.trim());
+                
+            // НОВОЕ ИЗМЕНЕНИЕ: Увеличение ширины линии и непрозрачности для лучшей видимости
+            path.setAttribute('stroke-width', '4'); // Увеличиваем ширину линии
+            path.setAttribute('opacity', '0.3'); // Немного увеличиваем непрозрачность
+            // Убедимся, что SVG-контейнер обновлен (на всякий случай, дублируя логику onWindowResize)
+            const svg = document.getElementById('svg-path-tracker');
+            if (svg) {
+                svg.setAttribute('viewBox', `0 0 1000 ${totalHeight}`);
+                svg.style.height = `${totalHeight}px`;
+            }
+
+            // Запускаем MotionPath, привязанный к скроллу
+            gsap.to(ball, {
+                motionPath: {
+                    path: path,
+                    align: path,
+                    autoRotate: false,
+                    alignOrigin: [0.1, 0.1]
+                },
+                
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "body",
+                    start: "top top",
+                    end: "bottom bottom", // Шарик катится до конца скролла
+                    scrub: 1.0,
+                }
+            });
+        }
+        // ЛОГИКА: СМЕНА ТЕМЫ
+        function setupThemeSwitch() {
+            const themeSwitch = document.getElementById('theme-switch');
+            const html = document.documentElement;
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            html.setAttribute('data-theme', savedTheme);
+
+            // Функция для применения цвета шарика
+            function updateBallColor(theme) {
+                const ball = document.getElementById("path-tracker-ball");
+                if (ball) {
+                    // ГОЛУБОЙ для темной темы (0x29D8B4 или #29D8B4 - это акцентный цвет кругов,
+                    // но мы используем #61DAFB для React-иконки,
+                    // давайте выберем консистентный цвет для акцента)
+                    // ИЛИ используем оранжевый/голубой.
+                    
+                    // Темная тема: Голубой (#29D8B4, который используется для пульсирующих кругов)
+                    const darkColor = '#29D8B4'; 
+                    // Светлая тема: Оранжевый (#FF8C00, который используется для пульсирующих кругов в светлой теме)
+                    const lightColor = '#FF8C00'; 
+                    
+                    const newColor = theme === 'dark' ? darkColor : lightColor;
+                    
+                    gsap.to(ball, {
+                        duration: 0.5,
+                        fill: newColor, // Анимация цвета заливки
+                        // Обновление цвета тени (если используется Drop-Shadow Filter)
+                        // Для Drop-Shadow CSS-фильтра нужно обновить стиль
+                        onUpdate: () => {
+                            // Это гарантирует, что цвет тени обновляется вместе с цветом заливки
+                            ball.style.filter = `drop-shadow(0 0 8px ${newColor})`;
+                        }
+                    });
+                    // Немедленное применение цвета (для первого запуска)
+                    if (gsap.getTweensOf(ball).length === 0) {
+                        ball.setAttribute('fill', newColor);
+                        ball.style.filter = `drop-shadow(0 0 8px ${newColor})`;
+                    }
+                }
+            }
+
+            // Применить цвет при загрузке страницы
+            updateBallColor(savedTheme); 
+
+            // Обновление цвета 3D-модели (код из вашего примера)
+            if (model) {
+                const computedStyle = getComputedStyle(document.documentElement);
+                const primaryColorCSS = computedStyle.getPropertyValue('--color-primary').trim();
+                const newColor = parseInt(primaryColorCSS.replace('#', '0x'), 16);
+                model.material.color.set(newColor);
+            }
+            
+            // Обработчик клика
+            themeSwitch.addEventListener('click', () => {
+                const currentTheme = html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                html.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // 1. Обновление цвета шарика
+                updateBallColor(newTheme);
+
+                // 2. Обновление цвета 3D-модели (код из вашего примера)
+                if (model) {
+                    const newColorHex = newTheme === 'dark' ? 0x8C52FF : 0x337AFF;
+                    gsap.to(model.material.color, {
+                        duration: 0.5,
+                        r: ((newColorHex >> 16) & 255) / 255,
+                        g: ((newColorHex >> 8) & 255) / 255,
+                        b: (newColorHex & 255) / 255,
+                    });
+                }
+                
+                // 3. Обновление цвета пульсирующих кругов (код из вашего примера)
+                pulsatingCircles.forEach(circleData => {
+                    const newCircleColorHex = newTheme === 'dark' ? 0x29D8B4 : 0xFF8C00;
+                    gsap.to(circleData.mesh.material.color, {
+                        duration: 0.5,
+                        r: ((newCircleColorHex >> 16) & 255) / 255,
+                        g: ((newCircleColorHex >> 8) & 255) / 255,
+                        b: (newCircleColorHex & 255) / 255,
+                    });
+                });
+            });
+        }
+        // ЛОГИКА: ВЕРТИКАЛЬНЫЙ ТРЕКЕР
+        function setupVerticalTracker() {
+            const trackerItems = document.querySelectorAll('.tracker-item');        
+            trackerItems.forEach(item => {
+                const targetSelector = item.getAttribute('data-target');
+                const targetSection = document.querySelector(targetSelector);             
+                if (!targetSection) return;
+                // Привязка к скроллу
+                ScrollTrigger.create({
+                    trigger: targetSection,
+                    start: "top center",
+                    end: "bottom center",
+                    onToggle: self => {
+                        if (self.isActive) {
+                            trackerItems.forEach(i => i.classList.remove('active'));
+                            item.classList.add('active');
+                        }
+                    }
+                });           
+                // Обработчик клика для скролла (Плавный скролл)
+                item.addEventListener('click', () => {
+                    gsap.to(window, { duration: 1, scrollTo: { y: targetSection, offsetY: 80 }, ease: "power2.inOut" });
+                });
+            });
+        }
+        // ============ ЛОГИКА АНИМАЦИИ И НАВИГАЦИИ ============
+        function initAnimations() {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+            // Плавное появление body после загрузки
+            gsap.to("body", { opacity: 1, visibility: 'visible', duration: 0.8, ease: "power2.out" });
+            // Параллакс фона
+            if (camera && grid) {
+                gsap.to(camera.position, { y: 20, scrollTrigger: { trigger: "main", start: "top top", end: "bottom top", scrub: 0.5 } });
+                gsap.to(grid.rotation, { x: Math.PI * 0.05, scrollTrigger: { trigger: "main", start: "top top", end: "bottom top", scrub: 1 } });
+            }  
+            // АНИМАЦИЯ 3D-МОДЕЛИ СВЯЗАННАЯ СО СКРОЛЛОМ
+            if (model) {
+                gsap.to(model.rotation, {
+                    x: Math.PI * 4,
+                    y: Math.PI * 6,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: "main",
+                        start: "top top",
+                        end: "bottom top",
+                        scrub: 1.5
+                    }
+                });
+                gsap.to(model.position, {
+                z: 50, // Сдвигаем к 50 (ближе, но не на 100, как раньше)
+                y: 0,  // Центрируем по Y
+                ease: "power1.inOut",
+                scrollTrigger: {
+                    trigger: "#section-2",
+                    start: "top bottom",
+                    end: "top top",
+                    scrub: 1
+                }
+            });
+            }
+            // Анимация появления карточек и элементов
+            document.querySelectorAll('.card, .process-step, .tech-icons i').forEach(el => {
+                gsap.from(el, { opacity: 0, y: 30, duration: 0.7, ease: "power3.out", delay: parseFloat(el.getAttribute('data-delay')) || 0, scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none none" } });
+            });
+            // Активный класс в горизонтальной навигации
+            document.querySelectorAll('section').forEach(section => {
+                ScrollTrigger.create({
+                    trigger: section,
+                    start: "top 20%",
+                    end: "bottom 20%",
+                    onToggle: self => {
+                        const targetId = section.id;
+                        const link = document.querySelector(`.nav-links a[data-scroll="${targetId}"]`);
+                        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                        if (self.isActive && link) { link.classList.add('active'); }
+                    }
+                });
+            });
+            // ============ НОВАЯ ЛОГИКА: ПЛАВНЫЙ СКРОЛЛ НАВИГАЦИИ ============
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-target');
+                    if (targetId) {
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                             // Используем GSAP для плавного скролла
+                            gsap.to(window, { duration: 1, scrollTo: { y: targetSection, offsetY: 80 }, ease: "power2.inOut" });
+                        }
+                    }
+                });
+            });
+            // Добавление плавного скролла для боковой панели
+            document.getElementById('question-button').addEventListener('click', () => {
+                const contactSection = document.getElementById('section-5');
+                gsap.to(window, { duration: 1, scrollTo: { y: contactSection, offsetY: 80 }, ease: "power2.inOut" });
+            });
+            document.getElementById('scroll-to-top').addEventListener('click', () => {
+                gsap.to(window, { duration: 1, scrollTo: 0, ease: "power2.inOut" });
+            });
+            // Инициализация новых элементов
+            initPathTracker();
+            setupVerticalTracker();
+
+            // НОВАЯ ЛОГИКА: ЭФФЕКТ ПУЛЬСАЦИИ ШАРИКА
+            const ball = document.getElementById("path-tracker-ball");
+            if (ball) {
+                gsap.to(ball, {
+                    attr: { r: 12 }, // Шарик пульсирует до радиуса 12
+                    duration: 0.8,
+                    ease: "power1.inOut",
+                    yoyo: true, // Возвращение к исходному состоянию
+                    repeat: -1, // Бесконечное повторение
+                    scale: 1.1 // Небольшое увеличение масштаба в целом
+                });
+            }
+        }
+        // ============ ЛОГИКА ПЕРЕВОДА ============
+        const translations = {
+                       // ДОБАВЛЕНИЕ: Украинский язык
+             'ukr': { 
+                'services': 'Послуги', 'benefits': 'Підхід', 'portfolio': 'Портфоліо', 'process': 'Процес', 'tech_stack': 'Стек', 'contact': 'Звʼязок',
+                'hero_tagline': 'Мистецтво Технологічної Архітектури', 'hero_title': 'СТВОРЮЙТЕ МАЙБУТНЄ. ІНТЕЛЕКТУАЛЬНІ ПЛАТФОРМИ.',
+                'hero_subtitle': 'Ми спеціалізуємося на розробці комплексних, масштабованих систем, використовуючи AI, 3D-візуалізацію та чистий Full-Stack код.', 'hero_cta': 'Розпочати Обговорення →',
+                'sec_services_title': 'Комплексна Розробка', 'sec_services_subtitle': 'Наш досвід охоплює повний цикл створення цифрового продукту, від ідеї до підтримки.',
+                'service1_title': 'AI & ML Інтеграція', 'service1_desc': 'Інтелектуальні системи, чат-боти, рекомендаційні рушії та автоматизація на основі нейромереж.',
+                'service2_title': 'Full-Stack Системи', 'service2_desc': 'Високонавантажені веб-додатки на сучасних фреймворках (React, Node.js, Next.js).',
+                'service3_title': '3D та Візуалізація', 'service3_desc': 'Інтерактивний 3D-контент, WebGL (Three.js), віртуальні конфігуратори та дашборди.',
+                'sec_benefits_title': 'Наш Підхід до Архітектури', 'sec_benefits_subtitle': 'Ми — стратегічні партнери, орієнтовані на довговічність вашого продукту.',
+                'benefit1_desc': 'Розробляємо з розрахунком на мільйони користувачів та легку інтеграцію нових модулів.',
+                'benefit2_desc': 'Впровадження найкращих практик та протоколів безпеки на рівні архітектури.',
+                'benefit3_desc': 'Повний доступ до коду, таск-трекерів та постійна комунікація з командою.',
+                'sec_portfolio_title': 'Вибрані Проєкти', 'sec_portfolio_subtitle': 'Складні завдання, які ми перетворили на успіх для наших клієнтів.',
+                'proj1_title': 'Фінансовий AI-Аналітик', 'proj1_desc': 'Платформа для прогнозування ринкових трендів на основі глибокого навчання.',
+                'proj2_title': 'Інтерактивний 3D-Шоурум', 'proj2_desc': 'Веб-додаток для презентації та налаштування промислових товарів у реальному часі.',
+                'proj3_title': 'Медичний IoT-Хаб', 'proj3_desc': 'Система збору та обробки даних з медичних датчиків з хмарним сховищем.',
+                'proj_extra1_title': 'B2B SaaS Платформа', 'proj_extra1_desc': 'Повністю перероблена архітектура та UI/UX для Enterprise SaaS рішення.',
+                'proj_extra2_title': 'WebVR Навчання', 'proj_extra2_desc': 'Інтерактивний досвід навчання для інженерів з використанням WebXR.',
+                'sec_process_title': 'Етапи Роботи', 'sec_process_subtitle': 'Методологія Agile, адаптована для досягнення максимальної ефективності та якості.',
+                'proc1_title': 'Дослідження та Концепція', 'proc1_desc': 'Аудит, формування ТЗ, розробка дорожньої карти та високорівневої архітектури.',
+                'proc2_title': 'Прототипування та Дизайн', 'proc2_desc': 'Створення UI/UX, детальне проєктування API та мікросервісів.',
+                'proc3_title': 'Ітеративна Розробка', 'proc3_desc': 'Спринти, розробка функціоналу, безперервна інтеграція та модульне тестування.',
+                'proc4_title': 'Впровадження та Зростання', 'proc4_desc': 'Фінальний QA, запуск, інтеграція в бізнес-процеси та післярелізна підтримка.',
+                'sec_stack_title': 'Технології', 'sec_stack_subtitle': 'Ми працюємо з інструментами, які забезпечують швидкість, надійність та інновації.',
+                'sec_contact_title': 'Почнемо Роботу?', 'sec_contact_subtitle': 'Заповніть форму, і наш головний архітектор зв’яжеться з вами протягом 24 годин.',
+                'name_ph': 'Ваше Ім’я:', 'email_ph': 'Ваш Email: [Обов’язково]', 'project_ph': 'Опишіть Ваш Проєкт (цілі, бюджет, терміни):', 'send_cta': 'Надіслати Запит',
+                'footer_copy': '© 2025 Lumu.Tech. Всі права захищені.',
+             },
+             'eng': {
+                'services': 'Services', 'benefits': 'Approach', 'portfolio': 'Portfolio', 'process': 'Process', 'tech_stack': 'Tech Stack', 'contact': 'Contact',
+                'hero_tagline': 'The Art of Technological Architecture', 'hero_title': 'BUILD THE FUTURE. INTELLIGENT PLATFORMS.',
+                'hero_subtitle': 'We specialize in developing complex, scalable systems using AI, 3D visualization, and clean Full-Stack code.', 'hero_cta': 'Start Discussion →',
+                'sec_services_title': 'Comprehensive Development', 'sec_services_subtitle': 'Our experience covers the full cycle of digital product creation, from idea to support.',
+                'service1_title': 'AI & ML Integration', 'service1_desc': 'Intelligent systems, chatbots, recommendation engines, and neural network-based automation.',
+                'service2_title': 'Full-Stack Systems', 'service2_desc': 'High-load web applications using modern frameworks (React, Node.js, Next.js).',
+                'service3_title': '3D and Visualization', 'service3_desc': 'Interactive 3D content, WebGL (Three.js), virtual configurators, and dashboards.',
+                'sec_benefits_title': 'Our Approach to Architecture', 'sec_benefits_subtitle': 'We are strategic partners focused on the longevity of your product.',
+                'benefit1_desc': 'We develop for millions of users and easy integration of new modules.',
+                'benefit2_desc': 'Implementing best security practices and protocols at the architectural level.',
+                'benefit3_desc': 'Full access to the code, task trackers, and continuous team communication.',
+                'sec_portfolio_title': 'Featured Projects', 'sec_portfolio_subtitle': 'Complex challenges we turned into success for our clients.',
+                'proj1_title': 'Financial AI Analyst', 'proj1_desc': 'A platform for forecasting market trends based on deep learning.',
+                'proj2_title': 'Interactive 3D Showroom', 'proj2_desc': 'A web application for real-time presentation and configuration of industrial goods.',
+                'proj3_title': 'Medical IoT Hub', 'proj3_desc': 'A system for collecting and processing data from medical sensors with cloud storage.',
+                'proj_extra1_title': 'B2B SaaS Platform', 'proj_extra1_desc': 'Completely redesigned architecture and UI/UX for an Enterprise SaaS solution.',
+                'proj_extra2_title': 'WebVR Training', 'proj_extra2_desc': 'Interactive training experience for engineers using WebXR.',
+                'sec_process_title': 'Workflow Steps', 'sec_process_subtitle': 'Agile methodology adapted to achieve maximum efficiency and quality.',
+                'proc1_title': 'Research and Concept', 'proc1_desc': 'Audit, specification formulation, roadmap development, and high-level architecture.',
+                'proc2_title': 'Prototyping and Design', 'proc2_desc': 'Creation of UI/UX, detailed API and microservice design.',
+                'proc3_title': 'Iterative Development', 'proc3_desc': 'Sprints, feature development, continuous integration, and unit testing.',
+                'proc4_title': 'Deployment and Growth', 'proc4_desc': 'Final QA, launch, integration into business processes, and post-release support.',
+                'sec_stack_title': 'Technology Stack', 'sec_stack_subtitle': 'We work with tools that ensure speed, reliability, and innovation.',
+                'sec_contact_title': 'Shall We Start Work?', 'sec_contact_subtitle': 'Fill out the form, and our chief architect will contact you within 24 hours.',
+                'name_ph': 'Your Name:', 'email_ph': 'Your Email: [Required]', 'project_ph': 'Describe Your Project (goals, budget, timeline):', 'send_cta': 'Send Request',
+                'footer_copy': '© 2025 Lumu.Tech. All Rights Reserved.',
+             }
+        };
+        // Внутри вашей функции initLanguage:
+        const savedLang = localStorage.getItem('lang') || 'ukr'; // ИЗМЕНЕНИЕ: Устанавливаем 'ukr' по умолчанию
+        function applyTranslation(lang) {
+            document.querySelectorAll('[data-trans]').forEach(el => {
+                const key = el.getAttribute('data-trans');
+                if (translations[lang] && translations[lang][key]) {
+                    const text = translations[lang][key];
+                    if (key === 'hero_title') {
+                        // Специальная обработка для выделенного текста в заголовке
+                        const parts = text.split('. ');
+                        const highlightedPart = parts.length > 1 ? parts[1].replace(/(\.)$/, '') : '';
+                        // Собираем обратно
+                        const finalHTML = `${parts[0]}. <span style="background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(140, 82, 255, 0.5);">${highlightedPart}</span>. ${parts.slice(2).join('. ') || ''}`;
+                        el.innerHTML = finalHTML.trim().replace(/\. \.$/g, '.');
+                    } else {
+                        el.textContent = text;
+                    }
+                }
+            });
+            document.querySelectorAll('[data-trans-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-trans-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.setAttribute('placeholder', translations[lang][key]);
+                }
+            });
+            // Обновление активной кнопки языка
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+             // Регистрируем ScrollToPlugin для плавного скролла
+            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
+            initThree();
+            setupThemeSwitch();
+            initAnimations();
+            applyTranslation(currentLang);
+            document.getElementById('lang-switch').addEventListener('click', (e) => {
+                if (e.target.classList.contains('lang-btn')) {
+                    const newLang = e.target.getAttribute('data-lang');
+                    localStorage.setItem('lang', newLang);
+                    applyTranslation(newLang);
+                }
+            });
+            window.addEventListener('resize', onWindowResize);
+        });
+    [
+    {
+        "address": "вулиця Університетська, 26, Ірпінь, Київська область, 08200",
+        "description": "",
+        "distance": "550м",
+        "distance_in_meters": 559,
+        "id": "ChIJ1SxkQn4xK0cRDgN4QUYB-dU",
+        "latlng_location": {
+        "latitude": 50.5227432,
+        "longitude": 30.2282721
+        },
+        "map_title": "Місця",
+        "map_url": "https://maps.google.com/?cid=15418356200537326350&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ",
+        "name": "вулиця Університетська, 26",
+        "phone_number": "",
+        "url": "https://maps.google.com/?cid=15418356200537326350&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ"
+    }
+    ]
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
+</body>
+</html>
