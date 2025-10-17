@@ -2042,30 +2042,37 @@
         }
 
         // ============ ЛОГИКА АНИМАЦИИ И НАВИГАЦИИ ============
-        function initAnimations() {
-            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof ScrollToPlugin === 'undefined') return;
-            gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
-            
-            // Если мобильный, отключаем MotionPath и сложную 3D-анимацию
-            const isMobile = window.innerWidth <= 768;
-            if (isMobile) {
-                gsap.to("body", { opacity: 1, visibility: 'visible', duration: 0.1 });
-                document.querySelectorAll('.card, .process-step, .tech-icons i, .work-card, .contact-form input, .contact-form textarea, .contact-form button').forEach(el => {
-                    gsap.from(el, { 
-                        opacity: 0, 
-                        y: 0, // Убираем анимацию движения для простоты
-                        duration: 0.1, 
-                        scrollTrigger: { 
-                            trigger: el, 
-                            start: "top 90%", 
-                        } 
-                    });
-                });
-                return; // Завершаем функцию
-            }
+        // ============ ЛОГИКА АНИМАЦИИ И НАВИГАЦИИ ============
+                function initAnimations() {
+                    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof ScrollToPlugin === 'undefined') return;
+                    gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, ScrollToPlugin);
+                    
+                    // Если мобильный, отключаем MotionPath и сложную 3D-анимацию
+                    const isMobile = window.innerWidth <= 768;
+                    if (isMobile) {
+                        // 1. Мгновенно делаем 'body' видимым
+                        gsap.set("body", { opacity: 1, visibility: 'visible' }); 
 
+                        // 2. Находим ВСЕ элементы, которые по умолчанию невидимы (или анимируются на десктопе)
+                        document.querySelectorAll('.card, .process-step, .tech-icons i, .work-card, .contact-form input, .contact-form textarea, .contact-form button, [data-trans]').forEach(el => {
+                            // Мгновенно устанавливаем их в конечное состояние (видимость и позиция)
+                            gsap.set(el, { 
+                                opacity: 1, 
+                                y: 0,
+                            });
+                        });
+                        
+                        // Очищаем ScrollTriggers для мобильных, если они были инициализированы
+                        ScrollTrigger.getAll().forEach(t => t.kill());
+                        
+                        return; // Завершаем функцию
+                    }
 
-            gsap.to("body", { opacity: 1, visibility: 'visible', duration: 0.8, ease: "power2.out" });
+                    // ... ДЕСКТОПНЫЕ АНИМАЦИИ НАЧИНАЮТСЯ ЗДЕСЬ ... 
+                    
+                    gsap.to("body", { opacity: 1, visibility: 'visible', duration: 0.8, ease: "power2.out" });
+
+                    // ... остальной код десктопной анимации ...
             
             // Анимация камеры и сетки при прокрутке
             if (camera && grid) {
