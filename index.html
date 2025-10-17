@@ -938,7 +938,6 @@
         
         /* Медиа-запросы для телефонов */
         @media (max-width: 768px) {
-            
             /* 1. БАЗОВЫЕ НАСТРОЙКИ */
             body {
                 padding-top: 60px;
@@ -1744,6 +1743,16 @@
             const height = window.innerHeight;
             const isMobile = width <= 768;
 
+            // >>>>> ДОБАВЛЯЕМ/СБРАСЫВАЕМ ОТСТУП ПРИ ИЗМЕНЕНИИ РАЗМЕРА >>>>>
+            const studioSection = document.getElementById('section-studio-works');
+            if (studioSection) {
+                if (isMobile) {
+                    studioSection.style.paddingBottom = '150px'; 
+                } else {
+                    studioSection.style.paddingBottom = ''; // Сброс для десктопа
+                }
+            }
+
             // Глобальная сцена
             if (camera && renderer && !isMobile) {
                 camera.aspect = width / height;
@@ -2052,7 +2061,7 @@
                     if (isMobile) {
                         // 1. Мгновенно делаем 'body' видимым
                         gsap.set("body", { opacity: 1, visibility: 'visible' }); 
-
+                        
                         // 2. Находим ВСЕ элементы, которые по умолчанию невидимы (или анимируются на десктопе)
                         document.querySelectorAll('.card, .process-step, .tech-icons i, .work-card, .contact-form input, .contact-form textarea, .contact-form button, [data-trans]').forEach(el => {
                             // Мгновенно устанавливаем их в конечное состояние (видимость и позиция)
@@ -2065,8 +2074,15 @@
                         // Очищаем ScrollTriggers для мобильных, если они были инициализированы
                         ScrollTrigger.getAll().forEach(t => t.kill());
                         
-                        return; // Завершаем функцию
+                        const studioSection = document.getElementById('section-studio-works');
+                        if (studioSection) {
+                            studioSection.style.paddingBottom = ''; // Увеличьте по необходимости
+                        }
+                        
+                        return; // Завершаем функцию
+                        
                     }
+                    
 
                     // ... ДЕСКТОПНЫЕ АНИМАЦИИ НАЧИНАЮТСЯ ЗДЕСЬ ... 
                     
